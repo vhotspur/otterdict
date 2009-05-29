@@ -3,7 +3,6 @@
 #include "Dictionary.h"
 
 EchoPlugin::EchoPlugin() {
-	qDebug("EchoPlugin::EchoPlugin");
 }
 
 QString EchoPlugin::getName() {
@@ -13,9 +12,7 @@ QString EchoPlugin::getName() {
 
 QVector<Dictionary *> EchoPlugin::getDictionaries() {
 	QVector<Dictionary *> result;
-	qDebug("EchoPlugin::getDictionaries");
 	result.append(new EchoDictionary());
-	qDebug("leaving EchoPlugin::getDictionaries");
 	return result;
 }
 

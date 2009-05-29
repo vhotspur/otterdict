@@ -18,7 +18,6 @@ QString EchoDictionary::getName() const {
 }
 
 void EchoDictionary::translate(const QString & what) {
-	qDebug("EchoDictionary::translate(\"%s\")", qPrintable(what));
 	emit hitFound(what, what);
 }
 
