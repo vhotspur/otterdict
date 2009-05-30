@@ -3,6 +3,10 @@
 #include <QPluginLoader>
 #include <QDir>
 
+/**
+ * @param pluginDir Directory name where to look for plugins
+ * 
+ */
 PluginManager::PluginManager(const QString & pluginDir) :
 	pluginDir_(pluginDir),
 	dictionaries_()
@@ -17,6 +21,10 @@ void PluginManager::loadPlugins() {
 	loadPlugin(pluginDirectory.absoluteFilePath(fileName));
 }
 
+/**
+ * @param filename File where to load plugin from
+ * 
+ */
 void PluginManager::loadPlugin(const QString & filename) {
 	QPluginLoader pluginLoader(filename);
 	QObject * plugin = pluginLoader.instance();
@@ -40,6 +48,13 @@ void PluginManager::loadPlugin(const QString & filename) {
 	}
 }
 
+/**
+ * @warning The given dictionary is taken over and is destroyd by the
+ * plugin manager.
+ * 
+ * @param dictionary Dictionary to be added.
+ * 
+ */
 void PluginManager::addDictionary(Dictionary * dictionary) {
 	dictionaries_.append(dictionary);
 }
@@ -53,6 +68,11 @@ QStringList PluginManager::getDictionaries() const {
 	return result;
 }
 
+/**
+ * @retval 0 Invalid dictionary id
+ * @param id Dictionary id (index in the list)
+ * 
+ */
 Dictionary * PluginManager::getDictionary(int id) {
 	if (id < 0 || id >= dictionaries_.size()) {
 		return 0;

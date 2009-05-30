@@ -1,11 +1,21 @@
 #include "ActionZone.h"
 
+/**
+ * @details The constructor only initializes the UI.
+ * 
+ * @param parent Parent widget.
+ * 
+ */
 ActionZone::ActionZone(QWidget * parent) :
 	QWidget(parent)
 {
 	initGui();
 }
 
+/**
+ * @param mgr New plugin manager to use.
+ * 
+ */
 void ActionZone::setPluginManager(PluginManager * mgr) {
 	plugins_ = mgr;
 	viewer1_->setPluginManager(mgr);

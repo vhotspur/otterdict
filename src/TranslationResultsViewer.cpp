@@ -1,5 +1,11 @@
 #include "TranslationResultsViewer.h"
 
+/**
+ * @details The constructor only initializes the UI.
+ * 
+ * @param parent Parent widget.
+ * 
+ */
 TranslationResultsViewer::TranslationResultsViewer(QWidget * parent) :
 	QWidget(parent)
 {	
@@ -13,6 +19,10 @@ TranslationResultsViewer::TranslationResultsViewer(QWidget * parent) :
 	layout_->addWidget(resultListView_, 1);
 }
 
+/**
+ * @param mgr New plugin manager to use.
+ * 
+ */
 void TranslationResultsViewer::setPluginManager(PluginManager * mgr) {
 	plugins_ = mgr;
 }
@@ -35,6 +45,10 @@ int TranslationResultsViewer::getCurrentDictionaryId() const {
 	return idx;
 }
 
+/**
+ * @param term Term to translate
+ * 
+ */
 void TranslationResultsViewer::translate(const QString & term) {
 	Dictionary * dictionary = plugins_->getDictionary(getCurrentDictionaryId());
 	if (dictionary == 0) {
@@ -48,6 +62,11 @@ void TranslationResultsViewer::translate(const QString & term) {
 	delete dictionary;
 }
 
+/**
+ * @param original Original term (i.e. the one to be translated)
+ * @param translated Translation of the original term
+ * 
+ */
 void TranslationResultsViewer::translationFound(const QString & original, const QString & translated) {
 	resultListView_->addItem(original + " -> " + translated);
 	qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));

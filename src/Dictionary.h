@@ -13,24 +13,54 @@
 class Dictionary : public QObject {
 	
 public:
-	/// Constructor.
+	/**
+	 * Constructor.
+	 * 
+	 */
 	Dictionary() {}
-	/// Virtual destructor.
+	/**
+	 * Virtual destructor.
+	 * 
+	 */
 	virtual ~Dictionary() {}
-	/// Clones itself, returning new copy.
+	/**
+	 * Clones itself, returning new copy.
+	 * 
+	 * @return Identical copy of itself.
+	 * 
+	 */
 	virtual Dictionary * clone() const { return 0; }
-	/// Tells name of the dictionary.
+	/**
+	 * Tells name of the dictionary.
+	 * 
+	 */
 	virtual QString getName() const { return ""; }
-	/// Called when new search is requested.
+	/**
+	 * Called when new search is requested.
+	 * 
+	 * @param str String to be translated
+	 * 
+	 */
 	void setTerm(const QString & str) {
 		translate(str);
 	}
 signals: 
-	/// Signal to be emmited when a translation hit is found.
-	void hitFound(const QString &, const QString &);
+	/**
+	 * Emmited when a translation hit is found.
+	 * 
+	 * @param original Original term (i.e. the one to be translated)
+	 * @param translated Translation of the original term
+	 * 
+	 */
+	void hitFound(const QString & original, const QString & translated);
 protected:
-	/// Callback for a new search - the heart of the dictionary.
-	virtual void translate(const QString &) {};
+	/**
+	 * Callback for a new search - the heart of the dictionary.
+	 * 
+	 * @param what Term to translate
+	 * 
+	 */
+	virtual void translate(const QString & what) {};
 };
 
 #endif
