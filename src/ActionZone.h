@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QAction>
 #include "TranslationResultsViewer.h"
 #include "PluginManager.h"
 
@@ -37,6 +38,8 @@ private:
 	QVBoxLayout * topLayout_;
 	/// Input field with searched term.
 	QLineEdit * searchedTerm_;
+	/// Action widget for the input field.
+	QAction * searchTermFocusOnEscapeAction_;
 	/// Submit button.
 	QPushButton * searchButton_;
 	TranslationResultsViewer * viewer1_;

@@ -37,8 +37,14 @@ void ActionZone::initGui() {
 	topLayout_->addLayout(resultsLayout_, 2);
 	
 	searchedTerm_ = new QLineEdit(this);
-	connect(searchedTerm_, SIGNAL(editingFinished()), this, SLOT(sendTranslation()));
+	connect(searchedTerm_, SIGNAL(returnPressed()), this, SLOT(sendTranslation()));
 	inputControlsLayout_->addWidget(searchedTerm_);
+	
+	searchTermFocusOnEscapeAction_ = new QAction(searchedTerm_);
+	searchTermFocusOnEscapeAction_->setShortcut(Qt::Key_Escape);
+	searchedTerm_->addAction(searchTermFocusOnEscapeAction_);
+	connect(searchTermFocusOnEscapeAction_, SIGNAL(triggered()), searchedTerm_, SLOT(setFocus()));
+	connect(searchTermFocusOnEscapeAction_, SIGNAL(triggered()), searchedTerm_, SLOT(selectAll()));
 	
 	searchButton_ = new QPushButton("Translate!", this);
 	connect(searchButton_, SIGNAL(clicked()), this, SLOT(sendTranslation()));
