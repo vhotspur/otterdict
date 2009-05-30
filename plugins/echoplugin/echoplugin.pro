@@ -5,8 +5,8 @@ INCLUDEPATH += . ../../src/
 # DEPENDPATH += . ../../src/
 
 # Input
-HEADERS += EchoDictionary.h EchoPlugin.h 
-SOURCES += EchoDictionary.cpp EchoPlugin.cpp
+HEADERS += EchoDictionary.h ReverseDictionary.h EchoPlugin.h 
+SOURCES += EchoDictionary.cpp ReverseDictionary.cpp EchoPlugin.cpp
 
 OBJECTS_DIR = ../../build
 DESTDIR = ../../build

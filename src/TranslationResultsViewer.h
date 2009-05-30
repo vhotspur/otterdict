@@ -24,6 +24,8 @@ public slots:
 		if (dictionary == 0) {
 			return;
 		}
+		qDebug("Translating `%s' using `%s' dictionary.", 
+			qPrintable(term), qPrintable(dictionary->getName()));
 		connect(dictionary, SIGNAL(hitFound(const QString &, const QString &)),
 			this, SLOT(translationFound(const QString &, const QString &)));
 		dictionary->setTerm(term);
