@@ -7,7 +7,8 @@
  * 
  */
 ActionZone::ActionZone(QWidget * parent) :
-	QWidget(parent)
+	QWidget(parent),
+	resultViewers_()
 {
 	initGui();
 }
@@ -18,10 +19,12 @@ ActionZone::ActionZone(QWidget * parent) :
  */
 void ActionZone::setPluginManager(PluginManager * mgr) {
 	plugins_ = mgr;
-	viewer1_->setPluginManager(mgr);
-	viewer1_->reloadDictionaries();
-	viewer2_->setPluginManager(mgr);
-	viewer2_->reloadDictionaries();
+	
+	TranslationResultsViewerList::iterator e = resultViewers_.end();
+	for (TranslationResultsViewerList::iterator i = resultViewers_.begin(); i != e; ++i) {
+		(*i)->setPluginManager(mgr);
+		(*i)->reloadDictionaries();
+	}
 }
 
 void ActionZone::sendTranslation() {
@@ -50,11 +53,16 @@ void ActionZone::initGui() {
 	connect(searchButton_, SIGNAL(clicked()), this, SLOT(sendTranslation()));
 	inputControlsLayout_->addWidget(searchButton_);
 	
-	viewer1_ = new TranslationResultsViewer(this);
-	connect(this, SIGNAL(newTranslation(const QString &)), viewer1_, SLOT(translate(const QString &)));
-	resultsLayout_->addWidget(viewer1_, 1);
+	for (int i=0; i<2; i++) {
+		TranslationResultsViewer * viewer = new TranslationResultsViewer(this);
+		resultViewers_.append(viewer);
+	}
 	
-	viewer2_ = new TranslationResultsViewer(this);
-	connect(this, SIGNAL(newTranslation(const QString &)), viewer2_, SLOT(translate(const QString &)));
-	resultsLayout_->addWidget(viewer2_, 1);
+	TranslationResultsViewerList::iterator e = resultViewers_.end();
+	for (TranslationResultsViewerList::iterator i = resultViewers_.begin(); i != e; ++i) {
+		connect(this, SIGNAL(newTranslation(const QString &)), 
+			*i, SLOT(translate(const QString &)));
+		resultsLayout_->addWidget(*i, 1);
+	}
+	
 }

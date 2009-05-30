@@ -26,6 +26,9 @@ public slots:
 signals:
 	/// Emitted when new term is entered.
 	void newTranslation(const QString &);
+protected:
+	/// List of translation results viewers.
+	typedef QVector<TranslationResultsViewer *> TranslationResultsViewerList;
 private:
 	/// Initializes the UI.
 	void initGui();
@@ -42,8 +45,8 @@ private:
 	QAction * searchTermFocusOnEscapeAction_;
 	/// Submit button.
 	QPushButton * searchButton_;
-	TranslationResultsViewer * viewer1_;
-	TranslationResultsViewer * viewer2_;
+	/// Results viewers.
+	TranslationResultsViewerList resultViewers_;
 	/// Plugin manager.
 	PluginManager * plugins_;
 };
