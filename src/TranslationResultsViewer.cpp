@@ -7,8 +7,6 @@ TranslationResultsViewer::TranslationResultsViewer(QWidget * parent) :
 	resultListView->setResizeMode(QListView::Adjust);
 	
 	dictionaryChooser = new QComboBox(this);
-	dictionaryChooser->addItem("Hullo");
-	dictionaryChooser->addItem("Nazdar");
 	
 	layout = new QVBoxLayout(this);
 	layout->addWidget(dictionaryChooser, 0);
@@ -19,8 +17,26 @@ void TranslationResultsViewer::setPluginManager(PluginManager * mgr) {
 	plugins = mgr;
 }
 
+void TranslationResultsViewer::reloadDictionaries() {
+	dictionaryChooser->clear();
+	
+	QStringList dicts = plugins->getDictionaries();
+	QStringList::iterator e = dicts.end();
+	for (QStringList::iterator i = dicts.begin(); i != e; ++i) {
+		dictionaryChooser->addItem(*i);
+	}
+}
+
+int TranslationResultsViewer::getCurrentDictionaryId() const {
+	int idx = dictionaryChooser->currentIndex();
+	if (idx == -1) {
+		return 0;
+	}
+	return idx;
+}
+
 void TranslationResultsViewer::translate(const QString & term) {
-	Dictionary * dictionary = plugins->getDictionary(0);
+	Dictionary * dictionary = plugins->getDictionary(getCurrentDictionaryId());
 	if (dictionary == 0) {
 		return;
 	}

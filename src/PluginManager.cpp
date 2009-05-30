@@ -7,7 +7,7 @@ PluginManager::PluginManager(const QString & pluginDir) :
 	pluginDir_(pluginDir),
 	dictionaries_()
 {
-	Dictionary dict();
+	qDebug("Creating PluginManager...");
 }
 
 void PluginManager::loadPlugins() {
@@ -33,9 +33,9 @@ void PluginManager::loadPlugin(const QString & filename) {
 	
 	// everythings seems fine, let's add the dictionaries to the 
 	// local list
-	QVector<Dictionary *> dicts = shelf->getDictionaries();
-	QVector<Dictionary *>::iterator e = dicts.end();
-	for (QVector<Dictionary *>::iterator i = dicts.begin(); i != e; ++i) {
+	DictionaryList dicts = shelf->getDictionaries();
+	DictionaryList::iterator e = dicts.end();
+	for (DictionaryList::iterator i = dicts.begin(); i != e; ++i) {
 		addDictionary(*i);
 	}
 }
@@ -44,6 +44,14 @@ void PluginManager::addDictionary(Dictionary * dictionary) {
 	dictionaries_.append(dictionary);
 }
 
+QStringList PluginManager::getDictionaries() const {
+	QStringList result;
+	DictionaryList::const_iterator e = dictionaries_.end();
+	for (DictionaryList::const_iterator i = dictionaries_.begin(); i != e; ++i) {
+		result.append((*i)->getName());
+	}
+	return result;
+}
 
 Dictionary * PluginManager::getDictionary(int id) {
 	if (id < 0 || id >= dictionaries_.size()) {

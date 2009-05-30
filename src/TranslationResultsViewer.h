@@ -14,6 +14,9 @@ public:
 public slots:
 	void translate(const QString & term);
 	void translationFound(const QString & original, const QString & translated);
+	void reloadDictionaries();
+protected:
+	int getCurrentDictionaryId() const;
 private:
 	QVBoxLayout * layout;
 	QListWidget * resultListView;

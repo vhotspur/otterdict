@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QStringList>
 #include "DictionaryShelfPluginInterface.h"
 #include "Dictionary.h"
 
@@ -13,14 +14,16 @@ public:
 	void loadPlugins();
 	
 	int getPluginCount();
+	QStringList getDictionaries() const;
 	
 	Dictionary * getDictionary(int id);
 protected:
+	typedef QVector<Dictionary *> DictionaryList;
 	void loadPlugin(const QString & filename);
 	void addDictionary(Dictionary * dictionary);
 private:
 	QString pluginDir_;
-	QVector<Dictionary *> dictionaries_;
+	DictionaryList dictionaries_;
 };
 
 #endif

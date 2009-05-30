@@ -17,7 +17,9 @@ public:
 	void setPluginManager(PluginManager * mgr) {
 		plugins = mgr;
 		viewer1->setPluginManager(mgr);
+		viewer1->reloadDictionaries();
 		viewer2->setPluginManager(mgr);
+		viewer2->reloadDictionaries();
 	}
 public slots:
 	void sendTranslation() {
