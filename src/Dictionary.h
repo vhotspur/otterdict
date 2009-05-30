@@ -29,12 +29,12 @@ public:
 	 * @return Identical copy of itself.
 	 * 
 	 */
-	virtual Dictionary * clone() const { return 0; }
+	virtual Dictionary * clone() const = 0;
 	/**
 	 * Tells name of the dictionary.
 	 * 
 	 */
-	virtual QString getName() const { return ""; }
+	virtual QString getName() const = 0;
 	/**
 	 * Called when new search is requested.
 	 * 
@@ -60,7 +60,7 @@ protected:
 	 * @param what Term to translate
 	 * 
 	 */
-	virtual void translate(const QString & what) {};
+	virtual void translate(const QString & what) = 0;
 };
 
 #endif
