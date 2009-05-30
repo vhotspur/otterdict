@@ -18,10 +18,10 @@ public slots:
 protected:
 	int getCurrentDictionaryId() const;
 private:
-	QVBoxLayout * layout;
-	QListWidget * resultListView;
-	QComboBox * dictionaryChooser;
-	PluginManager * plugins;
+	QVBoxLayout * layout_;
+	QListWidget * resultListView_;
+	QComboBox * dictionaryChooser_;
+	PluginManager * plugins_;
 };
 
 #endif

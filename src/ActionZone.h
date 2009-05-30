@@ -20,14 +20,14 @@ signals:
 private:
 	void initGui();
 	
-	QHBoxLayout * inputControlsLayout;
-	QHBoxLayout * resultsLayout;
-	QVBoxLayout * topLayout;
-	QLineEdit * searchedTerm;
-	QPushButton * searchButton;
-	TranslationResultsViewer * viewer1;
-	TranslationResultsViewer * viewer2;
-	PluginManager * plugins;
+	QHBoxLayout * inputControlsLayout_;
+	QHBoxLayout * resultsLayout_;
+	QVBoxLayout * topLayout_;
+	QLineEdit * searchedTerm_;
+	QPushButton * searchButton_;
+	TranslationResultsViewer * viewer1_;
+	TranslationResultsViewer * viewer2_;
+	PluginManager * plugins_;
 };
 
 #endif

@@ -3,32 +3,32 @@
 TranslationResultsViewer::TranslationResultsViewer(QWidget * parent) :
 	QWidget(parent)
 {	
-	resultListView = new QListWidget(this);
-	resultListView->setResizeMode(QListView::Adjust);
+	resultListView_ = new QListWidget(this);
+	resultListView_->setResizeMode(QListView::Adjust);
 	
-	dictionaryChooser = new QComboBox(this);
+	dictionaryChooser_ = new QComboBox(this);
 	
-	layout = new QVBoxLayout(this);
-	layout->addWidget(dictionaryChooser, 0);
-	layout->addWidget(resultListView, 1);
+	layout_ = new QVBoxLayout(this);
+	layout_->addWidget(dictionaryChooser_, 0);
+	layout_->addWidget(resultListView_, 1);
 }
 
 void TranslationResultsViewer::setPluginManager(PluginManager * mgr) {
-	plugins = mgr;
+	plugins_ = mgr;
 }
 
 void TranslationResultsViewer::reloadDictionaries() {
-	dictionaryChooser->clear();
+	dictionaryChooser_->clear();
 	
-	QStringList dicts = plugins->getDictionaries();
+	QStringList dicts = plugins_->getDictionaries();
 	QStringList::iterator e = dicts.end();
 	for (QStringList::iterator i = dicts.begin(); i != e; ++i) {
-		dictionaryChooser->addItem(*i);
+		dictionaryChooser_->addItem(*i);
 	}
 }
 
 int TranslationResultsViewer::getCurrentDictionaryId() const {
-	int idx = dictionaryChooser->currentIndex();
+	int idx = dictionaryChooser_->currentIndex();
 	if (idx == -1) {
 		return 0;
 	}
@@ -36,7 +36,7 @@ int TranslationResultsViewer::getCurrentDictionaryId() const {
 }
 
 void TranslationResultsViewer::translate(const QString & term) {
-	Dictionary * dictionary = plugins->getDictionary(getCurrentDictionaryId());
+	Dictionary * dictionary = plugins_->getDictionary(getCurrentDictionaryId());
 	if (dictionary == 0) {
 		return;
 	}
@@ -49,6 +49,6 @@ void TranslationResultsViewer::translate(const QString & term) {
 }
 
 void TranslationResultsViewer::translationFound(const QString & original, const QString & translated) {
-	resultListView->addItem(original + " -> " + translated);
+	resultListView_->addItem(original + " -> " + translated);
 	qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));
 }
