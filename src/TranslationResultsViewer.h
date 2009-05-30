@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QVBoxLayout>
+#include <QComboBox>
 #include "PluginManager.h"
 
 class TranslationResultsViewer : public QWidget {
@@ -16,6 +17,7 @@ public slots:
 private:
 	QVBoxLayout * layout;
 	QListWidget * resultListView;
+	QComboBox * dictionaryChooser;
 	PluginManager * plugins;
 };
 

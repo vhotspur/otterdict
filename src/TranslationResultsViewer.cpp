@@ -2,10 +2,16 @@
 
 TranslationResultsViewer::TranslationResultsViewer(QWidget * parent) :
 	QWidget(parent)
-{
-	layout = new QVBoxLayout();
+{	
 	resultListView = new QListWidget(this);
 	resultListView->setResizeMode(QListView::Adjust);
+	
+	dictionaryChooser = new QComboBox(this);
+	dictionaryChooser->addItem("Hullo");
+	dictionaryChooser->addItem("Nazdar");
+	
+	layout = new QVBoxLayout(this);
+	layout->addWidget(dictionaryChooser, 0);
 	layout->addWidget(resultListView, 1);
 }
 
@@ -28,4 +34,5 @@ void TranslationResultsViewer::translate(const QString & term) {
 
 void TranslationResultsViewer::translationFound(const QString & original, const QString & translated) {
 	resultListView->addItem(original + " -> " + translated);
+	qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));
 }

@@ -17,9 +17,11 @@ public:
 	void setPluginManager(PluginManager * mgr) {
 		plugins = mgr;
 		viewer1->setPluginManager(mgr);
+		viewer2->setPluginManager(mgr);
 	}
 public slots:
 	void sendTranslation() {
+		qDebug("Emmiting...");
 		emit newTranslation(searchedTerm->text());
 	}
 signals:
@@ -43,6 +45,10 @@ private:
 		viewer1 = new TranslationResultsViewer(this);
 		connect(this, SIGNAL(newTranslation(const QString &)), viewer1, SLOT(translate(const QString &)));
 		resultsLayout->addWidget(viewer1, 1);
+		
+		viewer2 = new TranslationResultsViewer(this);
+		connect(this, SIGNAL(newTranslation(const QString &)), viewer2, SLOT(translate(const QString &)));
+		resultsLayout->addWidget(viewer2, 1);
 	}
 	
 	
@@ -53,6 +59,7 @@ private:
 	QLineEdit * searchedTerm;
 	QPushButton * searchButton;
 	TranslationResultsViewer * viewer1;
+	TranslationResultsViewer * viewer2;
 	PluginManager * plugins;
 };
 

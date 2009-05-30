@@ -1,5 +1,6 @@
 TEMPLATE = app
 TARGET = otterdict
+CONFIG += debug
 DEPENDPATH += . 
 INCLUDEPATH += .
 
