@@ -6,7 +6,7 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += ActionZone.h DictionaryShelfPluginInterface.h Dictionary.h TranslationResultsViewer.h PluginManager.h
-SOURCES += main.cpp TranslationResultsViewer.cpp PluginManager.cpp
+SOURCES += main.cpp ActionZone.cpp TranslationResultsViewer.cpp PluginManager.cpp
 
 OBJECTS_DIR = ../build
 DESTDIR = ../build

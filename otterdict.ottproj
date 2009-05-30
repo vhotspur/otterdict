@@ -1,8 +1,11 @@
+Make make
+Build qmake
 Tree
     Item otterdict.pro
     Item Doxyfile
     Folder UI
         Item src/ActionZone.h
+        Item src/ActionZone.cpp
         Item src/TranslationResultsViewer.h
         Item src/TranslationResultsViewer.cpp
     /Folder
