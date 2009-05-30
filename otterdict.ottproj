@@ -1,0 +1,26 @@
+Tree
+    Item otterdict.pro
+    Item Doxyfile
+    Folder UI
+        Item src/ActionZone.h
+        Item src/TranslationResultsViewer.h
+        Item src/TranslationResultsViewer.cpp
+    /Folder
+    Folder Main
+        Item src/src.pro
+        Item src/main.cpp
+        Item src/Dictionary.h
+        Item src/DictionaryShelfPluginInterface.h
+        Item src/PluginManager.h
+        Item src/PluginManager.cpp
+    /Folder
+    Folder EchoPlugin
+        Item plugins/echoplugin/echoplugin.pro
+        Item plugins/echoplugin/EchoPlugin.h
+        Item plugins/echoplugin/EchoPlugin.cpp
+        Item plugins/echoplugin/EchoDictionary.h
+        Item plugins/echoplugin/EchoDictionary.cpp
+        Item plugins/echoplugin/ReverseDictionary.h
+        Item plugins/echoplugin/ReverseDictionary.cpp
+    /Folder
+/Tree
