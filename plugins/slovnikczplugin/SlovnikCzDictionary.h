@@ -10,7 +10,7 @@
 class SlovnikCzDictionary : public Dictionary {
 	Q_OBJECT
 public:
-	SlovnikCzDictionary();
+	SlovnikCzDictionary(const QString & dictSpecification, const QString & name);
 	virtual ~SlovnikCzDictionary();
 	virtual Dictionary * clone() const;
 	virtual QString getName() const;
@@ -19,9 +19,11 @@ signals:
 protected:
 	virtual void translate(const QString & what);
 	QString getTextOnly(HtmlParser::HtmlTree::iterator start, HtmlParser::HtmlTree::iterator end);
-	QString getRequestPath(QString term, QString dictionary);
+	QString getRequestPath(QString term);
 private:
 	QHttp * httpConnection_;
+	QString dictionarySpecification_;
+	QString name_;
 private slots:
 	void onRequestFinished(int id, bool error);
 };

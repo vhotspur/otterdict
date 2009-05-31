@@ -2,9 +2,12 @@
 #include <QByteArray>
 #include <QUrl>
 
-SlovnikCzDictionary::SlovnikCzDictionary() :
+SlovnikCzDictionary::SlovnikCzDictionary(const QString & dictSpecification, 
+		const QString & name) :
 	Dictionary(),
-	httpConnection_(0)
+	httpConnection_(0),
+	dictionarySpecification_(dictSpecification),
+	name_(name)
 {
 }
 
@@ -13,25 +16,25 @@ SlovnikCzDictionary::~SlovnikCzDictionary() {
 
 
 Dictionary * SlovnikCzDictionary::clone() const {
-	return new SlovnikCzDictionary();
+	return new SlovnikCzDictionary(dictionarySpecification_, name_);
 }
 
 QString SlovnikCzDictionary::getName() const {
-	return "Slovnik.cz";
+	return name_;
 }
 
 void SlovnikCzDictionary::translate(const QString & what) {
 	httpConnection_ = new QHttp("www.slovnik.cz");
-	httpConnection_->get(getRequestPath(what, "encz.en"));
+	httpConnection_->get(getRequestPath(what));
 	connect(httpConnection_, SIGNAL(requestFinished(int, bool)),
 		this, SLOT(onRequestFinished(int, bool)));
 }
 
-QString SlovnikCzDictionary::getRequestPath(QString term, QString dictionary) {
+QString SlovnikCzDictionary::getRequestPath(QString term) {
 	QUrl url;
 	url.setPath("/bin/mld.fpl");
-	url.addQueryItem("vcb", term);
-	url.addQueryItem("dictdir", dictionary);
+	url.addQueryItem("vcb", term.toUtf8());
+	url.addQueryItem("dictdir", dictionarySpecification_);
 	url.addQueryItem("lines", "40");
 	url.addQueryItem("js", "0");
 	return url.toString(QUrl::RemoveAuthority);
@@ -77,7 +80,7 @@ QString SlovnikCzDictionary::getTextOnly(
 		}
 		++start;
 	}
-	return result;
+	return QString::fromUtf8(result.toStdString().c_str());
 }
 
 

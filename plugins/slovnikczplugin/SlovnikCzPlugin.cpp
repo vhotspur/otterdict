@@ -12,7 +12,8 @@ QString SlovnikCzPlugin::getName() {
 
 QVector<Dictionary *> SlovnikCzPlugin::getDictionaries() {
 	QVector<Dictionary *> result;
-	result.append(new SlovnikCzDictionary());
+	result.append(new SlovnikCzDictionary("encz.en", "English-Czech (slovnik.cz)"));
+	result.append(new SlovnikCzDictionary("encz.cz", "Czech-English (slovnik.cz)"));
 	return result;
 }
 

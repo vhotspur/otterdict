@@ -35,5 +35,12 @@ Tree
         Item plugins/slovnikczplugin/SlovnikCzPlugin.cpp
         Item plugins/slovnikczplugin/SlovnikCzDictionary.h
         Item plugins/slovnikczplugin/SlovnikCzDictionary.cpp
+        Folder HtmlParser
+            Item plugins/slovnikczplugin/ParserSax.h
+            Item plugins/slovnikczplugin/HtmlParser.h
+            Item plugins/slovnikczplugin/HtmlParser.cpp
+            Item plugins/slovnikczplugin/HtmlNode.h
+            Item plugins/slovnikczplugin/HtmlNode.cpp
+        /Folder
     /Folder
 /Tree
