@@ -14,6 +14,13 @@ PluginManager::PluginManager(const QString & pluginDir) :
 	qDebug("Creating PluginManager...");
 }
 
+PluginManager::~PluginManager() {
+	DictionaryList::const_iterator e = dictionaries_.end();
+	for (DictionaryList::const_iterator i = dictionaries_.begin(); i != e; ++i) {
+		delete *i;
+	}
+}
+
 void PluginManager::loadPlugins() {
 	QDir pluginDirectory(pluginDir_);
 	

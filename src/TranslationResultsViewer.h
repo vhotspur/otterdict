@@ -15,6 +15,8 @@ class TranslationResultsViewer : public QWidget {
 public:
 	/// Constructor.
 	TranslationResultsViewer(QWidget * parent = 0);
+	/// Destructor.
+	~TranslationResultsViewer();
 	/// Sets a new plugin manager to use.
 	void setPluginManager(PluginManager * mgr);
 public slots:

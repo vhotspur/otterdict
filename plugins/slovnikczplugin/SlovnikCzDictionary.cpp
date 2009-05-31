@@ -7,13 +7,18 @@ SlovnikCzDictionary::SlovnikCzDictionary(const QString & dictSpecification,
 	Dictionary(),
 	httpConnection_(0),
 	dictionarySpecification_(dictSpecification),
-	name_(name)
+	name_(name),
+	destroyWhenFinished_(false)
 {
 }
 
 SlovnikCzDictionary::~SlovnikCzDictionary() {
+	delete httpConnection_;
 }
 
+void SlovnikCzDictionary::destroy() {
+	destroyWhenFinished_ = true;
+}
 
 Dictionary * SlovnikCzDictionary::clone() const {
 	return new SlovnikCzDictionary(dictionarySpecification_, name_);
@@ -67,6 +72,10 @@ void SlovnikCzDictionary::onRequestFinished(int id, bool error) {
 				rightTerm.clear();
 			}
 		}
+	}
+	
+	if (destroyWhenFinished_) {
+		delete this;
 	}
 }
 	

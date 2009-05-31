@@ -19,6 +19,10 @@ TranslationResultsViewer::TranslationResultsViewer(QWidget * parent) :
 	layout_->addWidget(resultListView_, 1);
 }
 
+TranslationResultsViewer::~TranslationResultsViewer() {
+	delete layout_;
+}
+
 /**
  * @param mgr New plugin manager to use.
  * 
@@ -60,7 +64,7 @@ void TranslationResultsViewer::translate(const QString & term) {
 	connect(dictionary, SIGNAL(hitFound(const QString &, const QString &)),
 		this, SLOT(translationFound(const QString &, const QString &)));
 	dictionary->setTerm(term);
-	//delete dictionary;
+	dictionary->destroy();
 }
 
 /**

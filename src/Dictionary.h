@@ -44,6 +44,15 @@ public:
 	void setTerm(const QString & str) {
 		translate(str);
 	}
+	/**
+	 * Called to inform that the object shall be destroyed when
+	 * convenient.
+	 * By default, it deletes itself immediately.
+	 * 
+	 */
+	virtual void destroy() {
+		delete this;
+	}
 signals: 
 	/**
 	 * Emmited when a translation hit is found.

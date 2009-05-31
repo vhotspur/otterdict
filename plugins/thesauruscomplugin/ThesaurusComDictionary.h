@@ -12,6 +12,7 @@ class ThesaurusComDictionary : public Dictionary {
 public:
 	ThesaurusComDictionary();
 	virtual ~ThesaurusComDictionary();
+	virtual void destroy();
 	virtual Dictionary * clone() const;
 	virtual QString getName() const;
 signals:
@@ -22,6 +23,7 @@ protected:
 	QString getRequestPath(QString term);
 private:
 	QHttp * httpConnection_;
+	bool destroyWhenFinished_;
 private slots:
 	void onRequestFinished(int id, bool error);
 };

@@ -12,6 +12,7 @@ class SlovnikCzDictionary : public Dictionary {
 public:
 	SlovnikCzDictionary(const QString & dictSpecification, const QString & name);
 	virtual ~SlovnikCzDictionary();
+	virtual void destroy();
 	virtual Dictionary * clone() const;
 	virtual QString getName() const;
 signals:
@@ -24,6 +25,7 @@ private:
 	QHttp * httpConnection_;
 	QString dictionarySpecification_;
 	QString name_;
+	bool destroyWhenFinished_;
 private slots:
 	void onRequestFinished(int id, bool error);
 };

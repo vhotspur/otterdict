@@ -15,6 +15,8 @@ class PluginManager {
 public:
 	/// Constructor.
 	PluginManager(const QString & pluginDir);
+	/// Destructor.
+	~PluginManager();
 	
 	/// Loads all available plugins.
 	void loadPlugins();

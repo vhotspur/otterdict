@@ -18,6 +18,8 @@ class ActionZone : public QWidget {
 public:
 	/// Constructor.
 	ActionZone(QWidget * parent = 0);
+	/// Destructor.
+	~ActionZone();
 	/// Sets plugin manager to use.
 	void setPluginManager(PluginManager * mgr);
 public slots:

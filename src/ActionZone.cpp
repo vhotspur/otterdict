@@ -13,6 +13,10 @@ ActionZone::ActionZone(QWidget * parent) :
 	initGui();
 }
 
+ActionZone::~ActionZone() {
+	delete topLayout_;
+}
+
 /**
  * @param mgr New plugin manager to use.
  * 

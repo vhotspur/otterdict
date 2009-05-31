@@ -4,13 +4,18 @@
 
 ThesaurusComDictionary::ThesaurusComDictionary() :
 	Dictionary(),
-	httpConnection_(0)
+	httpConnection_(0),
+	destroyWhenFinished_(false)
 {
 }
 
 ThesaurusComDictionary::~ThesaurusComDictionary() {
+	delete httpConnection_;
 }
 
+void ThesaurusComDictionary::destroy() {
+	destroyWhenFinished_ = true;
+}
 
 Dictionary * ThesaurusComDictionary::clone() const {
 	return new ThesaurusComDictionary();
@@ -69,6 +74,10 @@ void ThesaurusComDictionary::onRequestFinished(int id, bool error) {
 			}
 			
 		}
+	}
+	
+	if (destroyWhenFinished_) {
+		delete this;
 	}
 }
 	
