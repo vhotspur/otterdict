@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = echoplugin
+SUBDIRS = echoplugin slovnikczplugin

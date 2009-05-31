@@ -29,4 +29,11 @@ Tree
         Item plugins/echoplugin/ReverseDictionary.h
         Item plugins/echoplugin/ReverseDictionary.cpp
     /Folder
+    Folder SlovnikCzPlugin
+        Item plugins/slovnikczplugin/slovnikczplugin.pro
+        Item plugins/slovnikczplugin/SlovnikCzPlugin.h
+        Item plugins/slovnikczplugin/SlovnikCzPlugin.cpp
+        Item plugins/slovnikczplugin/SlovnikCzDictionary.h
+        Item plugins/slovnikczplugin/SlovnikCzDictionary.cpp
+    /Folder
 /Tree
