@@ -14,6 +14,16 @@ Tree
         Item src/main.cpp
         Item src/Dictionary.h
     /Folder
+    Folder Web helpers
+        Item src/www/tree.h
+        Item src/www/WebPage.h
+        Item src/www/WebPage.cpp
+        Item src/www/ParserSax.h
+        Item src/www/HtmlParser.h
+        Item src/www/HtmlParser.cpp
+        Item src/www/HtmlNode.h
+        Item src/www/HtmlNode.cpp
+    /Folder
     Folder Plugins
         Item src/DictionaryShelfPluginInterface.h
         Item src/PluginManager.h
@@ -35,13 +45,6 @@ Tree
         Item plugins/slovnikczplugin/SlovnikCzPlugin.cpp
         Item plugins/slovnikczplugin/SlovnikCzDictionary.h
         Item plugins/slovnikczplugin/SlovnikCzDictionary.cpp
-        Folder HtmlParser
-            Item plugins/slovnikczplugin/ParserSax.h
-            Item plugins/slovnikczplugin/HtmlParser.h
-            Item plugins/slovnikczplugin/HtmlParser.cpp
-            Item plugins/slovnikczplugin/HtmlNode.h
-            Item plugins/slovnikczplugin/HtmlNode.cpp
-        /Folder
     /Folder
     Folder Thesaurus.com
         Item plugins/thesauruscomplugin/thesauruscomplugin.pro

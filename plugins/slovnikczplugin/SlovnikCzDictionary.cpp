@@ -7,7 +7,7 @@ class HtmlParser;
 SlovnikCzDictionary::SlovnikCzDictionary(const QString & dictSpecification, 
 		const QString & name) :
 	Dictionary(),
-	httpConnection_(0),
+	dictionaryPage_(0),
 	dictionarySpecification_(dictSpecification),
 	name_(name),
 	destroyWhenFinished_(false)
@@ -15,7 +15,7 @@ SlovnikCzDictionary::SlovnikCzDictionary(const QString & dictSpecification,
 }
 
 SlovnikCzDictionary::~SlovnikCzDictionary() {
-	delete httpConnection_;
+	delete dictionaryPage_;
 }
 
 void SlovnikCzDictionary::destroy() {
@@ -31,10 +31,9 @@ QString SlovnikCzDictionary::getName() const {
 }
 
 void SlovnikCzDictionary::translate(const QString & what) {
-	httpConnection_ = new QHttp("www.slovnik.cz");
-	httpConnection_->get(getRequestPath(what));
-	connect(httpConnection_, SIGNAL(requestFinished(int, bool)),
-		this, SLOT(onRequestFinished(int, bool)));
+	dictionaryPage_ = new WebPage("http://www.slovnik.cz" + getRequestPath(what));
+	connect(dictionaryPage_, SIGNAL(loadingFinished()),
+		this, SLOT(onRequestFinished()));
 }
 
 QString SlovnikCzDictionary::getRequestPath(QString term) {
@@ -47,51 +46,38 @@ QString SlovnikCzDictionary::getRequestPath(QString term) {
 	return url.toString(QUrl::RemoveAuthority);
 }
 
-void SlovnikCzDictionary::onRequestFinished(int id, bool error) {
-	QByteArray requestData(httpConnection_->readAll());
-	
-	HtmlParser parser;
-	parser.parseTree(std::string(requestData.data()));
-	
-	HtmlParser::HtmlTree dom = parser.getTree();
-	
-	HtmlParser::HtmlTree::iterator e = dom.end();
+void SlovnikCzDictionary::onRequestFinished() {
+	WebPage::iterator e = dictionaryPage_->end();
 	QString leftTerm;
 	QString rightTerm;
-	for (HtmlParser::HtmlTree::iterator i = dom.begin(); i != e; ++i) {
+	emit hitFound("request", "finished");
+	
+	WebPage::iterator i = dictionaryPage_->begin();
+	while (i != e) {
 		if (i->isTag("span")) {
 			i->parseAttributes(true);
 			if (i->getAttribute("class") == "l") {
-				leftTerm = getTextOnly(dom.begin(i), dom.end(i));
-				i = dom.end(i);
+				leftTerm = dictionaryPage_->getElementInnerText(i);
+				i = dictionaryPage_->getFirstSibling(i);
 			} else if (i->getAttribute("class") == "r") {
-				rightTerm = getTextOnly(dom.begin(i), dom.end(i));
-				i = dom.end(i);
+				rightTerm = dictionaryPage_->getElementInnerText(i);
+				i = dictionaryPage_->getFirstSibling(i);
+			} else {
+				++i;
 			}
 			if (!leftTerm.isEmpty() && !rightTerm.isEmpty()) {
 				emit hitFound(leftTerm, rightTerm);
 				leftTerm.clear();
 				rightTerm.clear();
 			}
+		} else {
+			++i;
 		}
 	}
 	
 	if (destroyWhenFinished_) {
 		delete this;
 	}
-}
-	
-QString SlovnikCzDictionary::getTextOnly(
-		HtmlParser::HtmlTree::iterator start, 
-		HtmlParser::HtmlTree::iterator end) {
-	QString result;
-	while (start != end) {
-		if (start->isText()) {
-			result.append(start->getOpeningText().c_str());
-		}
-		++start;
-	}
-	return QString::fromUtf8(result.toStdString().c_str());
 }
 
 
