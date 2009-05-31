@@ -13,9 +13,12 @@ Tree
         Item src/src.pro
         Item src/main.cpp
         Item src/Dictionary.h
+    /Folder
+    Folder Plugins
         Item src/DictionaryShelfPluginInterface.h
         Item src/PluginManager.h
         Item src/PluginManager.cpp
+        Item plugins/plugins.pro
     /Folder
     Folder EchoPlugin
         Item plugins/echoplugin/echoplugin.pro
