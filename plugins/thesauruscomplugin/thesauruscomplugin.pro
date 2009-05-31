@@ -2,7 +2,7 @@ TEMPLATE = lib
 CONFIG += plugin
 QT += network
 TARGET = thesauruscomplugin
-INCLUDEPATH += . ../../src/
+INCLUDEPATH += . ../../src/ ../../src/www/
 # DEPENDPATH += . ../../src/
 
 # Input
@@ -12,8 +12,6 @@ SOURCES += ThesaurusComPlugin.cpp
 HEADERS += ThesaurusComDictionary.h
 SOURCES += ThesaurusComDictionary.cpp
 
-HEADERS += HtmlNode.h ParserSax.h HtmlParser.h
-SOURCES += HtmlNode.cpp HtmlParser.cpp
 
 OBJECTS_DIR = ../../build
 DESTDIR = ../../build

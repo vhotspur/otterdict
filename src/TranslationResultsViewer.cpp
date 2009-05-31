@@ -74,5 +74,5 @@ void TranslationResultsViewer::translate(const QString & term) {
  */
 void TranslationResultsViewer::translationFound(const QString & original, const QString & translated) {
 	resultListView_->addItem(original + " -> " + translated);
-	qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));
+	//qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));
 }

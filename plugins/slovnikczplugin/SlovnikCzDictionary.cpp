@@ -2,6 +2,8 @@
 #include <QByteArray>
 #include <QUrl>
 
+class HtmlParser;
+
 SlovnikCzDictionary::SlovnikCzDictionary(const QString & dictSpecification, 
 		const QString & name) :
 	Dictionary(),

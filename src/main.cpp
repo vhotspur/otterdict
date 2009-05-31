@@ -2,6 +2,7 @@
 #include <QCommonStyle>
 #include "ActionZone.h"
 #include "PluginManager.h"
+#include "www/WebPage.h"
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
