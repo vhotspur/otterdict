@@ -9,7 +9,7 @@ WebPage::WebPage(QUrl url, QIODevice * postData) :
 	connect(connection_, SIGNAL(requestFinished(int, bool)),
 		this, SLOT(onRequestFinished(int, bool)));
 	
-	QString path = url.toString(QUrl::RemoveAuthority);
+	QString path = url.toString(QUrl::RemoveAuthority | QUrl::RemoveScheme);
 	if (postData != 0) {
 		connection_->post(path, postData);
 	} else {
@@ -82,7 +82,7 @@ QString WebPage::getElementInnerText(WebPage::iterator elementIterator) const {
 	iterator end = dom_.end(elementIterator);
 	while (start != end) {
 		if (start->isText()) {
-			result.append(start->getOpeningText().c_str());
+			result.append(QString::fromUtf8(start->getOpeningText().c_str()));
 		}
 		++start;
 	}
@@ -90,7 +90,9 @@ QString WebPage::getElementInnerText(WebPage::iterator elementIterator) const {
 }
 
 WebPage::iterator WebPage::getFirstSibling(WebPage::iterator elementIterator) const {
-	return dom_.next_sibling(elementIterator);
+	iterator result = dom_.end(elementIterator);
+	++result;
+	return result;
 }
 
 

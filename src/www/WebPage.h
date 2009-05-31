@@ -30,6 +30,7 @@ public:
 private:
 	QHttp * connection_;
 	HtmlParser::HtmlTree dom_;
+private slots:
 	void onRequestFinished(int id, bool error);
 };
 
