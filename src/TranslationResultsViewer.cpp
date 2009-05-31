@@ -56,10 +56,11 @@ void TranslationResultsViewer::translate(const QString & term) {
 	}
 	qDebug("Translating `%s' using `%s' dictionary.", 
 		qPrintable(term), qPrintable(dictionary->getName()));
+	resultListView_->clear();
 	connect(dictionary, SIGNAL(hitFound(const QString &, const QString &)),
 		this, SLOT(translationFound(const QString &, const QString &)));
 	dictionary->setTerm(term);
-	delete dictionary;
+	//delete dictionary;
 }
 
 /**
