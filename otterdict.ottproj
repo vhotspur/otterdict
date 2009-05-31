@@ -43,4 +43,11 @@ Tree
             Item plugins/slovnikczplugin/HtmlNode.cpp
         /Folder
     /Folder
+    Folder Thesaurus.com
+        Item plugins/thesauruscomplugin/thesauruscomplugin.pro
+        Item plugins/thesauruscomplugin/ThesaurusComPlugin.h
+        Item plugins/thesauruscomplugin/ThesaurusComPlugin.cpp
+        Item plugins/thesauruscomplugin/ThesaurusComDictionary.h
+        Item plugins/thesauruscomplugin/ThesaurusComDictionary.cpp
+    /Folder
 /Tree
