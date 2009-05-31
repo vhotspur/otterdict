@@ -17,8 +17,11 @@ PluginManager::PluginManager(const QString & pluginDir) :
 void PluginManager::loadPlugins() {
 	QDir pluginDirectory(pluginDir_);
 	
-	QString fileName = pluginDirectory.entryList(QStringList() << "libechoplugin*").first();
-	loadPlugin(pluginDirectory.absoluteFilePath(fileName));
+	QStringList pluginFiles = pluginDirectory.entryList(QStringList() << "lib*plugin*");
+	QStringList::iterator e = pluginFiles.end();
+	for (QStringList::iterator i = pluginFiles.begin(); i != e; ++i) {
+		loadPlugin(pluginDirectory.absoluteFilePath(*i));
+	}
 }
 
 /**
