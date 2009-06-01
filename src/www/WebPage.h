@@ -21,9 +21,13 @@ public:
 	iterator begin() const;
 	iterator findElementWithClass(const QString & name, 
 		const QString & classname, 
-		const iterator startingPoint) const;
+		const iterator startingPoint);
 	iterator findElementWithClass(const QString & name, 
-		const QString & classname) const;
+		const QString & classname,
+		const iterator startingPoint,
+		const iterator endPoint);
+	iterator findElementWithClass(const QString & name, 
+		const QString & classname);
 	iterator findElementWithId(const QString & elementId);
 	QString getElementInnerText(iterator elementIterator) const;
 	iterator getFirstSibling(iterator elementIterator) const;

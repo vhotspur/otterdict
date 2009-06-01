@@ -171,6 +171,10 @@ void HtmlNode::parseAttributes(bool normalizeAttributes) {
 		return;
 	}
 	
+	if (attributesParsed_) {
+		return;
+	}
+	
 	const char *ptr = openingText_.c_str();
 	if ((ptr = strchr(ptr, '<')) == 0) {
 		return; // no <, probably something weird is going on...

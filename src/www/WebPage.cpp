@@ -40,10 +40,11 @@ WebPage::iterator WebPage::begin() const {
 }
 
 WebPage::iterator WebPage::findElementWithClass(const QString & name, 
-		const QString & classname, 
-		const WebPage::iterator startingPoint) const {
+		const QString & classname,
+		const iterator startingPoint,
+		const iterator endPoint) {
 	iterator e = end();
-	for (iterator i = startingPoint; i != e; ++i) {
+	for (iterator i = startingPoint; i != e && i != endPoint; ++i) {
 		if (i->isTag(qPrintable(name))) {
 			i->parseAttributes(true);
 			QString classes(i->getAttribute("class").c_str());
@@ -53,12 +54,17 @@ WebPage::iterator WebPage::findElementWithClass(const QString & name,
 			}
 		}
 	}
-	
 	return e;
 }
 
 WebPage::iterator WebPage::findElementWithClass(const QString & name, 
-		const QString & classname) const {
+		const QString & classname, 
+		const WebPage::iterator startingPoint) {
+	return findElementWithClass(name, classname, startingPoint, end());
+}
+
+WebPage::iterator WebPage::findElementWithClass(const QString & name, 
+		const QString & classname) {
 	return findElementWithClass(name, classname, begin());
 }
 
