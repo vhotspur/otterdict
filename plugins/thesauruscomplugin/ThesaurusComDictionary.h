@@ -5,7 +5,7 @@
 #include <QString>
 #include <QHttp>
 #include "Dictionary.h"
-#include "HtmlParser.h"
+#include "WebPage.h"
 
 class ThesaurusComDictionary : public Dictionary {
 	Q_OBJECT
@@ -19,13 +19,11 @@ signals:
 	void hitFound(const QString &, const QString &);
 protected:
 	virtual void translate(const QString & what);
-	QString getTextOnly(HtmlParser::HtmlTree::iterator start, HtmlParser::HtmlTree::iterator end);
-	QString getRequestPath(QString term);
 private:
-	QHttp * httpConnection_;
+	WebPage * dictionaryPage_;
 	bool destroyWhenFinished_;
 private slots:
-	void onRequestFinished(int id, bool error);
+	void onRequestFinished();
 };
 
 #endif

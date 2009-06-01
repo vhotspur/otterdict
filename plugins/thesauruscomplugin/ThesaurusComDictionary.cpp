@@ -4,13 +4,13 @@
 
 ThesaurusComDictionary::ThesaurusComDictionary() :
 	Dictionary(),
-	httpConnection_(0),
+	dictionaryPage_(0),
 	destroyWhenFinished_(false)
 {
 }
 
 ThesaurusComDictionary::~ThesaurusComDictionary() {
-	delete httpConnection_;
+	delete dictionaryPage_;
 }
 
 void ThesaurusComDictionary::destroy() {
@@ -26,72 +26,57 @@ QString ThesaurusComDictionary::getName() const {
 }
 
 void ThesaurusComDictionary::translate(const QString & what) {
-	httpConnection_ = new QHttp("thesaurus.reference.com");
-	httpConnection_->get(getRequestPath(what));
-	connect(httpConnection_, SIGNAL(requestFinished(int, bool)),
-		this, SLOT(onRequestFinished(int, bool)));
+	dictionaryPage_ = new WebPage(QUrl(
+		"http://thesaurus.reference.com/browse/" + QUrl::toPercentEncoding(what)));
+	connect(dictionaryPage_, SIGNAL(loadingFinished()),
+		this, SLOT(onRequestFinished()));
 }
 
-QString ThesaurusComDictionary::getRequestPath(QString term) {
-	return "/browse/" + QUrl::toPercentEncoding(term);
-}
-
-void ThesaurusComDictionary::onRequestFinished(int id, bool error) {
-	QByteArray requestData(httpConnection_->readAll());
+void ThesaurusComDictionary::onRequestFinished() {
+	WebPage::iterator endIter = dictionaryPage_->end();
 	
-	HtmlParser parser;
-	parser.parseTree(std::string(requestData.data()));
-	
-	HtmlParser::HtmlTree dom = parser.getTree();
-	
-	HtmlParser::HtmlTree::iterator e = dom.end();
-	QString leftTerm;
-	for (HtmlParser::HtmlTree::iterator i = dom.begin(); i != e; ++i) {
-		if (i->isTag()) {
-			i->parseAttributes(true);
-		}
-		
-		if (i->isTag("a")) {	
-			if (i->getAttribute("class") == "theColor") {
-				emit hitFound(leftTerm, getTextOnly(dom.begin(i), dom.end(i)));
-				i = dom.end(i);
-			}
-		} else if (i->isTag("span")) {
-			if (i->getAttribute("id") == "query") {
-				leftTerm = getTextOnly(dom.begin(i), dom.end(i));
-				i = dom.end(i);
-			}
-		} else if (i->isTag("div")) {
-			if (i->getAttribute("class") == "result_copyright") {
-				// end the search
+	// trick - dummy cycle to allow breaks from within
+	do { 	
+		WebPage::iterator nothingFoundHeading = dictionaryPage_->findElementWithId("Heading");
+		if (nothingFoundHeading != endIter) {
+			QString headingText = dictionaryPage_->getElementInnerText(nothingFoundHeading);
+			if (headingText.startsWith("No results found")) {
+				emit hitFound("<no synonym found>", "");
 				break;
 			}
-			if (i->getAttribute("id") == "Heading") {
-				if (getTextOnly(dom.begin(i), dom.end(i)).startsWith("No results found")) {
-					emit hitFound(leftTerm, "<no synonym found>");
-					break;
-				}
+		}
+		
+		QString term;
+		WebPage::iterator query = dictionaryPage_->findElementWithId("query");
+		if (query != endIter) {
+			term = dictionaryPage_->getElementInnerText(query);
+		}
+		
+		WebPage::iterator resultDelimiter = dictionaryPage_
+			->findElementWithClass("div", "result_copyright");
+			
+		WebPage::iterator i = dictionaryPage_->findElementWithClass("table", "the_content");
+		while (1) { // break from within
+			i = dictionaryPage_->findElementWithClass("a",
+				"theColor", i, resultDelimiter);
+				
+			if (i == endIter) {
+				break;
 			}
 			
+			QString synonym = dictionaryPage_->getElementInnerText(i);
+			emit hitFound(term, synonym);
+			
+			i = dictionaryPage_->getFirstSibling(i);
 		}
-	}
+		
+	// trick - dummy cycle to allow breaks from within
+	} while (0);
 	
 	if (destroyWhenFinished_) {
 		delete this;
 	}
 }
 	
-QString ThesaurusComDictionary::getTextOnly(
-		HtmlParser::HtmlTree::iterator start, 
-		HtmlParser::HtmlTree::iterator end) {
-	QString result;
-	while (start != end) {
-		if (start->isText()) {
-			result.append(start->getOpeningText().c_str());
-		}
-		++start;
-	}
-	return QString::fromUtf8(result.toStdString().c_str());
-}
 
 
