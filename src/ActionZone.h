@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QToolButton>
 #include <QAction>
 #include "TranslationResultsViewer.h"
 #include "PluginManager.h"
@@ -17,7 +18,7 @@ class ActionZone : public QWidget {
 	Q_OBJECT
 public:
 	/// Constructor.
-	ActionZone(QWidget * parent = 0);
+	ActionZone(int displayedDictionaries, QWidget * parent = 0);
 	/// Destructor.
 	~ActionZone();
 	/// Sets plugin manager to use.
@@ -31,9 +32,11 @@ signals:
 protected:
 	/// List of translation results viewers.
 	typedef QVector<TranslationResultsViewer *> TranslationResultsViewerList;
+	/// Displays info that there are no dictionaries available
+	void displayNoDictionariesMessage();
 private:
 	/// Initializes the UI.
-	void initGui();
+	void initGui(int displaydDictionaries);
 	
 	/// Layout for input entry and submit button.
 	QHBoxLayout * inputControlsLayout_;
@@ -47,10 +50,17 @@ private:
 	QAction * searchTermFocusOnEscapeAction_;
 	/// Submit button.
 	QPushButton * searchButton_;
+	/// Preferences button.
+	QToolButton * preferencesButton_;
 	/// Results viewers.
 	TranslationResultsViewerList resultViewers_;
 	/// Plugin manager.
 	PluginManager * plugins_;
+	/// Whether there are some dictionaries
+	bool noDictionaries;
+private slots:
+	/// Displays preferences dialog.
+	void preferencesDialog();
 };
 
 #endif
