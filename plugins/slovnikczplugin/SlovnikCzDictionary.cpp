@@ -50,7 +50,6 @@ void SlovnikCzDictionary::onRequestFinished() {
 	WebPage::iterator e = dictionaryPage_->end();
 	QString leftTerm;
 	QString rightTerm;
-	emit hitFound("request", "finished");
 	
 	WebPage::iterator i = dictionaryPage_->begin();
 	while (i != e) {
