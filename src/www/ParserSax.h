@@ -361,7 +361,7 @@ ParserSax::skipHtmlComment(_Iterator c, _Iterator end)
 
 
 template <typename _Iterator>
-static inline
+inline
 _Iterator find_next_quote(_Iterator c, _Iterator end, char quote)
 {
 	while (c != end && *c != quote) ++c;
@@ -369,6 +369,7 @@ _Iterator find_next_quote(_Iterator c, _Iterator end, char quote)
 }
 
 template <>
+inline
 const char *find_next_quote(const char *c, const char *end, char quote)
 {
 	const char *d = reinterpret_cast<const char*>(memchr(c, quote, end - c));
