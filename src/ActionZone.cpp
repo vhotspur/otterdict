@@ -15,8 +15,8 @@
  */
 ActionZone::ActionZone(int displayedDictionaries, QWidget * parent) :
 	QWidget(parent),
-	noDictionaries(false),
-	resultViewers_()
+	resultViewers_(),
+	noDictionaries(false)
 {
 	if (displayedDictionaries <= 0) {
 		displayedDictionaries = 1;

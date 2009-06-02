@@ -34,6 +34,9 @@ WebPage::~WebPage() {
  * 
  */
 void WebPage::onRequestFinished(int id, bool error) {
+	// get rid of warnings of unused parameters
+	(void)id; (void)error;
+	
 	QByteArray requestData(connection_->readAll());
 	
 	HtmlParser parser;

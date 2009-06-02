@@ -29,9 +29,9 @@ protected:
 	// the parsing
 	virtual void beginParsing() {}
 
-	virtual void foundTag(HtmlNode node, bool isEnd) {}
-	virtual void foundText(HtmlNode node) {}
-	virtual void foundComment(HtmlNode node) {}
+	virtual void foundTag(HtmlNode node, bool isEnd) = 0;
+	virtual void foundText(HtmlNode node) = 0;
+	virtual void foundComment(HtmlNode node) = 0;
 
 	virtual void endParsing() {}
 
