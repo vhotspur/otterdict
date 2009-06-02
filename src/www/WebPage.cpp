@@ -1,5 +1,10 @@
 #include "WebPage.h"
 
+/**
+ * @param url Page URL
+ * @param postData Specify if you want to get data using POST method.
+ *
+ */
 WebPage::WebPage(QUrl url, QIODevice * postData) :
 		dom_()
 {
@@ -21,6 +26,13 @@ WebPage::~WebPage() {
 	delete connection_;
 }
 
+/**
+ * @param id Request identification
+ * @param error Error flag
+ * 
+ * @see QHttp::requestFinished(int, bool)
+ * 
+ */
 void WebPage::onRequestFinished(int id, bool error) {
 	QByteArray requestData(connection_->readAll());
 	
@@ -39,6 +51,13 @@ WebPage::iterator WebPage::begin() const {
 	return dom_.begin();
 }
 
+/**
+ * @param name Tag name
+ * @param classname Class name
+ * @param startingPoint Where to start the search
+ * @param endPoint Where to end the search
+ * 
+ */
 WebPage::iterator WebPage::findElementWithClass(const QString & name, 
 		const QString & classname,
 		const iterator startingPoint,
@@ -57,17 +76,32 @@ WebPage::iterator WebPage::findElementWithClass(const QString & name,
 	return e;
 }
 
+/**
+ * @param name Tag name
+ * @param classname Class name
+ * @param startingPoint Where to start the search
+ * 
+ */
 WebPage::iterator WebPage::findElementWithClass(const QString & name, 
 		const QString & classname, 
 		const WebPage::iterator startingPoint) {
 	return findElementWithClass(name, classname, startingPoint, end());
 }
 
+/**
+ * @param name Tag name
+ * @param classname Class name
+ * 
+ */
 WebPage::iterator WebPage::findElementWithClass(const QString & name, 
 		const QString & classname) {
 	return findElementWithClass(name, classname, begin());
 }
 
+/**
+ * @param elementId Element id
+ * 
+ */
 WebPage::iterator WebPage::findElementWithId(const QString & elementId) {
 	iterator e = end();
 	for (iterator i = begin(); i != e; ++i) {
@@ -82,6 +116,10 @@ WebPage::iterator WebPage::findElementWithId(const QString & elementId) {
 	return e;
 }
 
+/**
+ * @param elementIterator Iterator to the element
+ * 
+ */
 QString WebPage::getElementInnerText(WebPage::iterator elementIterator) const {
 	QString result;
 	iterator start = dom_.begin(elementIterator);
@@ -95,6 +133,10 @@ QString WebPage::getElementInnerText(WebPage::iterator elementIterator) const {
 	return result;
 }
 
+/**
+ * @param elementIterator Iterator to the element
+ * 
+ */
 WebPage::iterator WebPage::getFirstSibling(WebPage::iterator elementIterator) const {
 	iterator result = dom_.end(elementIterator);
 	++result;
