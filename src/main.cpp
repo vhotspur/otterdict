@@ -1,9 +1,10 @@
 #include <QtGui>
-#include <QCommonStyle>
+#include <QIcon>
 #include <QSettings>
 #include "ActionZone.h"
 #include "PluginManager.h"
 #include "www/WebPage.h"
+#include "flag.xpm"
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
@@ -17,9 +18,8 @@ int main(int argc, char * argv[]) {
 	ActionZone mainWindow(settings.value("mainwindow/dictionarycount", 2).toInt(), 0);
 	mainWindow.setPluginManager(&plugMgr);
 	
-	QCommonStyle style;
 	mainWindow.setWindowTitle("OtterDict");
-	mainWindow.setWindowIcon(style.standardIcon(QStyle::SP_MessageBoxQuestion));
+	mainWindow.setWindowIcon(QIcon(QPixmap(flagIcon))); 
 	
 	mainWindow.show();
 	

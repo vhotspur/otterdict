@@ -1,10 +1,11 @@
 #include "ActionZone.h"
 #include <QDialog>
-#include <QCommonStyle>
+#include <QIcon>
 #include <QLabel>
 #include <QComboBox>
 #include <QSettings>
 #include <QMessageBox>
+#include "preferences.xpm"
 
 /**
  * @details The constructor only initializes the UI.
@@ -61,7 +62,6 @@ void ActionZone::sendTranslation() {
 		displayNoDictionariesMessage();
 		return;
 	}
-	qDebug("Emmiting...");
 	emit newTranslation(searchedTerm_->text());
 }
 
@@ -91,8 +91,7 @@ void ActionZone::initGui(int displaydDictionaries) {
 	inputControlsLayout_->addWidget(searchButton_);
 	
 	preferencesButton_ = new QToolButton(this);
-	QCommonStyle style;
-	preferencesButton_->setIcon(style.standardIcon(QStyle::SP_FileIcon));
+	preferencesButton_->setIcon(QIcon(QPixmap(preferencesIcon)));
 	connect(preferencesButton_, SIGNAL(clicked()), this, SLOT(preferencesDialog()));
 	inputControlsLayout_->addWidget(preferencesButton_);
 	
