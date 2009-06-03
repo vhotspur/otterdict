@@ -11,8 +11,8 @@ WebPage::WebPage(QUrl url, QIODevice * postData) :
 	int portNo = url.port() == -1 ? 80 : url.port();
 	connection_ = new QHttp(url.host(), portNo);
 	
-	connect(connection_, SIGNAL(requestFinished(int, bool)),
-		this, SLOT(onRequestFinished(int, bool)));
+	connect(connection_, SIGNAL(done(bool)),
+		this, SLOT(onRequestFinished(bool)));
 	
 	QString path = url.toString(QUrl::RemoveAuthority | QUrl::RemoveScheme);
 	if (postData != 0) {
@@ -28,14 +28,14 @@ WebPage::~WebPage() {
 
 /**
  * @param id Request identification
- * @param error Error flag
  * 
  * @see QHttp::requestFinished(int, bool)
  * 
  */
-void WebPage::onRequestFinished(int id, bool error) {
+void WebPage::onRequestFinished(bool error) {
+	qDebug("WebPage::onRequestFinished(int, bool)");
 	// get rid of warnings of unused parameters
-	(void)id; (void)error;
+	(void)error;
 	
 	QByteArray requestData(connection_->readAll());
 	

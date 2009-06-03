@@ -55,7 +55,7 @@ private:
 	HtmlParser::HtmlTree dom_;
 private slots:
 	/// Callback when page is loaded.
-	void onRequestFinished(int id, bool error);
+	void onRequestFinished(bool error);
 };
 
 #endif
