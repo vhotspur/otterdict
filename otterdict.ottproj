@@ -1,7 +1,7 @@
 Make make
 Build qmake
 Tree
-    Item otterdict.pro
+    Item Makefile
     Item Doxyfile
     Folder UI
         Item src/ActionZone.h
