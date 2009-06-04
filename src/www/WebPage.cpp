@@ -33,8 +33,7 @@ WebPage::~WebPage() {
  * 
  */
 void WebPage::onRequestFinished(bool error) {
-	qDebug("WebPage::onRequestFinished(int, bool)");
-	// get rid of warnings of unused parameters
+	// get rid of warnings of unused parameter
 	(void)error;
 	
 	QByteArray requestData(connection_->readAll());

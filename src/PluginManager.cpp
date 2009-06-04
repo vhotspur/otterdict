@@ -11,7 +11,6 @@ PluginManager::PluginManager(const QString & pluginDir) :
 	pluginDir_(pluginDir),
 	dictionaries_()
 {
-	qDebug("Creating PluginManager...");
 }
 
 PluginManager::~PluginManager() {

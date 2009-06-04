@@ -58,8 +58,7 @@ void TranslationResultsViewer::translate(const QString & term) {
 	if (dictionary == 0) {
 		return;
 	}
-	qDebug("Translating `%s' using `%s' dictionary.", 
-		qPrintable(term), qPrintable(dictionary->getName()));
+	// qDebug("Translating `%s' using `%s' dictionary.", qPrintable(term), qPrintable(dictionary->getName()));
 	resultListView_->clear();
 	connect(dictionary, SIGNAL(hitFound(const QString &, const QString &)),
 		this, SLOT(translationFound(const QString &, const QString &)));
@@ -74,5 +73,5 @@ void TranslationResultsViewer::translate(const QString & term) {
  */
 void TranslationResultsViewer::translationFound(const QString & original, const QString & translated) {
 	resultListView_->addItem(original + " -> " + translated);
-	//qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));
+	// qDebug("Found translation: `%s' -> `%s'.", qPrintable(original), qPrintable(translated));
 }
