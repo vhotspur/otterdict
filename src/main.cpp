@@ -10,9 +10,23 @@ int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
 	QSettings settings("otter", "dict");
 	
-	QString pluginDirectory = 
-		settings.value("application/plugindirectory", qApp->applicationDirPath()).toString();
-	PluginManager plugMgr(pluginDirectory + "/");
+	PluginManager plugMgr;
+	
+	// determine plugin directories
+	settings.beginGroup("application");
+	int size = settings.beginReadArray("plugindirectory");
+	for (int i = 0; i < size; i++) {
+		settings.setArrayIndex(i);
+		QString dir = settings.value("directory", "").toString();
+		if (dir.isEmpty()) {
+			continue;
+		}
+		plugMgr.addPluginDirectory(dir);
+	}
+	settings.endArray();
+	settings.endGroup();
+	
+	plugMgr.addPluginDirectory(qApp->applicationDirPath());
 	plugMgr.loadPlugins();
 	
 	ActionZone mainWindow(settings.value("mainwindow/dictionarycount", 2).toInt(), 0);

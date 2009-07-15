@@ -110,6 +110,8 @@ void ActionZone::initGui(int displayedDictionaries) {
 }
 
 void ActionZone::preferencesDialog() {
+	QSettings settings("otter", "dict");
+	
 	QDialog * dialog = new QDialog();
 	
 	QPushButton * okButton = new QPushButton("OK", dialog);
@@ -131,9 +133,26 @@ void ActionZone::preferencesDialog() {
 	
 	QLabel * pluginDirectoryLabel = new QLabel("Directory with plugins", dialog);
 	QLineEdit * pluginDirectory = new QLineEdit(dialog);
+	{
+		QString directories;
+		settings.beginGroup("application");
+		int size = settings.beginReadArray("plugindirectory");
+		for (int i = 0; i < size; i++) {
+			settings.setArrayIndex(i);
+			QString dir = settings.value("directory").toString();
+			if (dir.isEmpty()) {
+				continue;
+			}
+			directories += dir + ":";
+		}
+		pluginDirectory->setText(directories);
+		settings.endArray();
+		settings.endGroup();
+	}
+	
 	
 	QLabel * reloadInfoLabel = new QLabel(
-		"You need to restart OtterDict in order to changes take effect", dialog);
+		"OtterDict needs to be restarted to apply the changes.", dialog);
 	reloadInfoLabel->setWordWrap(true);
 	reloadInfoLabel->setFrameShape(QFrame::StyledPanel);
 	
@@ -156,7 +175,26 @@ void ActionZone::preferencesDialog() {
 	
 	int dictionaryCount = dictionaryCountCombo->currentIndex() + 1;
 	
-	QSettings settings("otter", "dict");
 	settings.setValue("mainwindow/dictionarycount", dictionaryCount);
-	settings.setValue("application/plugindirectory", pluginDirectory->text());
+	
+	// Write the application settings.
+	settings.beginGroup("application");
+	
+	// Write the plugin directories.
+	{
+		settings.beginWriteArray("plugindirectory");
+		
+		QStringList dirs = pluginDirectory->text().split(":", QString::SkipEmptyParts);
+		QStringList::iterator e = dirs.end();
+		int idx;
+		QStringList::iterator i;
+		for (idx = 0, i = dirs.begin(); i != e; ++i, idx++) {
+			settings.setArrayIndex(idx);
+			settings.setValue("directory", *i);
+		}
+		
+		settings.endArray();
+	}
+	
+	settings.endGroup();
 }

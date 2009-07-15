@@ -14,9 +14,12 @@
 class PluginManager {
 public:
 	/// Constructor.
-	PluginManager(const QString & pluginDir);
+	PluginManager();
 	/// Destructor.
 	~PluginManager();
+	
+	/// Adds directory where to look for plugins.
+	void addPluginDirectory(const QString & dirname);
 	
 	/// Loads all available plugins.
 	void loadPlugins();
@@ -34,8 +37,8 @@ protected:
 	/// Adds a dictionary to the list.
 	void addDictionary(Dictionary * dictionary);
 private:
-	/// Directory with plugins.
-	QString pluginDir_;
+	/// Directories where to look for plugins.
+	QStringList pluginDirectories_;
 	/// List of all loaded dictionaries.
 	DictionaryList dictionaries_;
 };

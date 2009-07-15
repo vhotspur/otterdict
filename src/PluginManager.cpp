@@ -4,11 +4,10 @@
 #include <QDir>
 
 /**
- * @param pluginDir Directory name where to look for plugins
  * 
  */
-PluginManager::PluginManager(const QString & pluginDir) :
-	pluginDir_(pluginDir),
+PluginManager::PluginManager() :
+	pluginDirectories_(),
 	dictionaries_()
 {
 }
@@ -20,13 +19,37 @@ PluginManager::~PluginManager() {
 	}
 }
 
+/**
+ * @warning Calling this method after loadPlugins() has no effect.
+ * 
+ * @param dirname Directory where to also look for plugins.
+ * 
+ */
+void PluginManager::addPluginDirectory(const QString & dirname) {
+	pluginDirectories_.append(dirname);
+}
+
 void PluginManager::loadPlugins() {
-	QDir pluginDirectory(pluginDir_);
+	// first try to remove duplicit directories
+	// (I know, I know, this is bad as it does not take care of
+	// symlinks etc. but it is better than nothing)
+	QStringList::iterator dirEnd = pluginDirectories_.end();
+	for (QStringList::iterator dir = pluginDirectories_.begin(); dir != dirEnd; ++dir) {
+		if (!dir->endsWith("/")) {
+			dir->append("/");
+		}
+	}
+	pluginDirectories_.removeDuplicates();
 	
-	QStringList pluginFiles = pluginDirectory.entryList(QStringList() << "lib*plugin*");
-	QStringList::iterator e = pluginFiles.end();
-	for (QStringList::iterator i = pluginFiles.begin(); i != e; ++i) {
-		loadPlugin(pluginDirectory.absoluteFilePath(*i));
+	dirEnd = pluginDirectories_.end();
+	for (QStringList::iterator dir = pluginDirectories_.begin(); dir != dirEnd; ++dir) {
+		QDir pluginDirectory(*dir);
+		
+		QStringList pluginFiles = pluginDirectory.entryList(QStringList() << "lib*plugin*");
+		QStringList::iterator e = pluginFiles.end();
+		for (QStringList::iterator i = pluginFiles.begin(); i != e; ++i) {
+			loadPlugin(pluginDirectory.absoluteFilePath(*i));
+		}
 	}
 }
 
