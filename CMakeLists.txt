@@ -3,7 +3,7 @@
 # OtterDict application.
 #
 #
-PROJECT(OtterDict)
+PROJECT(otterdict)
 
 # cmake settings
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.2)
@@ -70,11 +70,31 @@ MACRO(BUILD_DICTIONARY_PLUGIN arg_NAME arg_SOURCES arg_MOC_HEADERS)
 ENDMACRO(BUILD_DICTIONARY_PLUGIN)
 
 
+# set up packaging
+SET(CPACK_GENERATOR TGZ)
+SET(CPACK_SOURCE_GENERATOR TGZ)
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "otterdict-0.1")
+SET(CPACK_SOURCE_IGNORE_FILES ".svn/;moc_.*;gendocs/;build;.ignore")
+INCLUDE(CPack)
+
+# installation commands
+FILE(GLOB my_ALL_PLUGINS "${CMAKE_CURRENT_BINARY_DIR}/plugins/*/lib*plugin*")
+INSTALL(
+	FILES ${my_ALL_PLUGINS}
+	DESTINATION share/otterdict
+)
+INSTALL(
+	PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/src/otterdict
+	DESTINATION bin
+)
+
+
 # first, compile the plugins...
 ADD_SUBDIRECTORY(plugins/echoplugin)
 ADD_SUBDIRECTORY(plugins/slovnikczplugin)
 ADD_SUBDIRECTORY(plugins/thesauruscomplugin)
 # ...and the the application itself
 ADD_SUBDIRECTORY(src)
+
 
 # that's all

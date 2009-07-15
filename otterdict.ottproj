@@ -1,7 +1,7 @@
 Make make
 Build qmake
 Tree
-    Item Makefile
+    Item CMakeLists.txt
     Item Doxyfile
     Folder UI
         Item src/ActionZone.h
@@ -10,7 +10,7 @@ Tree
         Item src/TranslationResultsViewer.cpp
     /Folder
     Folder Main
-        Item src/src.pro
+        Item src/CMakeLists.txt
         Item src/main.cpp
         Item src/Dictionary.h
     /Folder
@@ -28,10 +28,9 @@ Tree
         Item src/DictionaryShelfPluginInterface.h
         Item src/PluginManager.h
         Item src/PluginManager.cpp
-        Item plugins/plugins.pro
     /Folder
     Folder EchoPlugin
-        Item plugins/echoplugin/echoplugin.pro
+        Item plugins/echoplugin/CMakeLists.txt
         Item plugins/echoplugin/EchoPlugin.h
         Item plugins/echoplugin/EchoPlugin.cpp
         Item plugins/echoplugin/EchoDictionary.h
@@ -40,14 +39,14 @@ Tree
         Item plugins/echoplugin/ReverseDictionary.cpp
     /Folder
     Folder SlovnikCzPlugin
-        Item plugins/slovnikczplugin/slovnikczplugin.pro
+        Item plugins/slovnikczplugin/CMakeLists.txt
         Item plugins/slovnikczplugin/SlovnikCzPlugin.h
         Item plugins/slovnikczplugin/SlovnikCzPlugin.cpp
         Item plugins/slovnikczplugin/SlovnikCzDictionary.h
         Item plugins/slovnikczplugin/SlovnikCzDictionary.cpp
     /Folder
     Folder Thesaurus.com
-        Item plugins/thesauruscomplugin/thesauruscomplugin.pro
+        Item plugins/thesauruscomplugin/CMakeLists.txt
         Item plugins/thesauruscomplugin/ThesaurusComPlugin.h
         Item plugins/thesauruscomplugin/ThesaurusComPlugin.cpp
         Item plugins/thesauruscomplugin/ThesaurusComDictionary.h
