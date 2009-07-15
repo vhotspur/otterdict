@@ -27,7 +27,7 @@ WebPage::~WebPage() {
 }
 
 /**
- * @param id Request identification
+ * @param error Error flag.
  * 
  * @see QHttp::requestFinished(int, bool)
  * 

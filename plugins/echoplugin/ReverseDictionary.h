@@ -5,6 +5,13 @@
 #include <QString>
 #include "Dictionary.h"
 
+/**
+ * Reversing dictionary.
+ * 
+ * This dictionary is intended for testing only as the translation is
+ * merely input with reverse order of the characters.
+ * 
+ */
 class ReverseDictionary : public Dictionary {
 	Q_OBJECT
 public:

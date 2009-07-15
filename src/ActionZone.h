@@ -36,7 +36,7 @@ protected:
 	void displayNoDictionariesMessage();
 private:
 	/// Initializes the UI.
-	void initGui(int displaydDictionaries);
+	void initGui(int displayedDictionaries);
 	
 	/// Layout for input entry and submit button.
 	QHBoxLayout * inputControlsLayout_;

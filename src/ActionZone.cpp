@@ -69,7 +69,7 @@ void ActionZone::sendTranslation() {
  * @param displayedDictionaries Number of dictionaries to display
  * 
  */
-void ActionZone::initGui(int displaydDictionaries) {
+void ActionZone::initGui(int displayedDictionaries) {
 	inputControlsLayout_ = new QHBoxLayout();
 	resultsLayout_ = new QHBoxLayout();
 	topLayout_ = new QVBoxLayout(this);
@@ -95,7 +95,7 @@ void ActionZone::initGui(int displaydDictionaries) {
 	connect(preferencesButton_, SIGNAL(clicked()), this, SLOT(preferencesDialog()));
 	inputControlsLayout_->addWidget(preferencesButton_);
 	
-	for (int i=0; i<displaydDictionaries; i++) {
+	for (int i=0; i<displayedDictionaries; i++) {
 		TranslationResultsViewer * viewer = new TranslationResultsViewer(this);
 		resultViewers_.append(viewer);
 	}

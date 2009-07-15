@@ -8,7 +8,9 @@
 #include "HtmlNode.h"
 
 /**
- * Simple Sax parser. This parser is partially rewritten ParserSax of the
+ * Simple Sax parser. 
+ * 
+ * This parser is partially rewritten ParserSax of the
  * of <a href="http://htmlcxx.sourceforge.net">htmlcxx library</a> but
  * uses HtmlNode class to store node info.
  * 

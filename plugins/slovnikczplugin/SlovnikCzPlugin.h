@@ -7,6 +7,10 @@
 #include "DictionaryShelfPluginInterface.h"
 #include "Dictionary.h"
 
+/**
+ * Plugin for on-line dictionary at http://slovnik.cz/.
+ * 
+ */
 class SlovnikCzPlugin : public QObject, DictionaryShelfPluginInterface {
 	Q_OBJECT
 	Q_INTERFACES(DictionaryShelfPluginInterface)

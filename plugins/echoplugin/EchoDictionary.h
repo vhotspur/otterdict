@@ -5,6 +5,13 @@
 #include <QString>
 #include "Dictionary.h"
 
+/**
+ * Echo dictionary.
+ * 
+ * This dictionary is intended for testing only as it only copies the input
+ * term as its result.
+ * 
+ */
 class EchoDictionary : public Dictionary {
 	Q_OBJECT
 public:

@@ -7,6 +7,10 @@
 #include "DictionaryShelfPluginInterface.h"
 #include "Dictionary.h"
 
+/**
+ * Testing plugin.
+ * 
+ */
 class EchoPlugin : public QObject, DictionaryShelfPluginInterface {
 	Q_OBJECT
 	Q_INTERFACES(DictionaryShelfPluginInterface)
