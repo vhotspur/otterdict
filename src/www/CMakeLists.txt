@@ -1,0 +1,20 @@
+INCLUDE(${QT_USE_FILE})
+
+
+SET(
+	my_SOURCES
+		HtmlNode.cpp
+		HtmlParser.cpp
+		WebPage.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${QT_INCLUDE_DIR}
+	${QT_QTNETWORK_INCLUDE_DIR}
+)
+
+LINK_LIBRARIES(
+	${QT_LIBRARIES}
+	${QT_QTNETWORK_LIBRARIES}
+)
+
