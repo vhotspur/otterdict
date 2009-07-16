@@ -3,6 +3,7 @@ Build qmake
 Tree
     Item CMakeLists.txt
     Item Doxyfile
+    Item README
     Folder UI
         Item src/ActionZone.h
         Item src/ActionZone.cpp

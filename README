@@ -1,0 +1,45 @@
+OtterDict README
+================
+
+OtterDict is a Qt-based application that serves as an interface to
+dictionaries available on-line.
+
+
+Building
+--------
+To build OtterDict, you need to have (in braces are programs/versions I have 
+used when developing)
+  * C++ compiler [g++ (GCC) 4.4.0]
+  * CMake [2.6]
+  * make [GNU Make 3.81]
+  * Qt libraries [4.5.2]
+
+I developed OtterDict on GNU/Linux, however it may be possible to port it to 
+other systems supported by Qt.
+
+The actual building process is pretty straightforward:
+  * unpack the tarball
+  * run `cmake' (optionally, create build directory)
+  * run `make'
+  * run `make install' to install otterdict
+Following commands would do the job (if you prefer in-source build, replace
+`cmake ..' with `cmake .'):
+$ tar -xzf otterdict-0.1.tar.gz
+$ cd otterdict-0.1
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+# make install
+
+If you are planning to extend OtterDict, run `doxygen' in root-directory of
+OtterDict -- it will create API reference manual in folder gendocs (open the
+index.html file in your favourite browser).
+
+Enjoy!
+
+
+Author
+------
+OtterDict was created by 
+Vojtech 'hotspur' Horky (vojta DOT horky AT-SYMBOL seznam DOT cz)
