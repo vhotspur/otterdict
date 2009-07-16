@@ -67,6 +67,14 @@ MACRO(BUILD_DICTIONARY_PLUGIN arg_NAME arg_SOURCES arg_MOC_HEADERS)
 
 	# and finally, we build the plugin
 	ADD_LIBRARY(${arg_NAME} MODULE ${my_plugin_ALL_SOURCES})
+	
+	# and we also install it
+	INSTALL(
+		TARGETS 
+			${arg_NAME}
+		LIBRARY 
+			DESTINATION "lib/${PROJECT_NAME}/plugins"
+	)
 ENDMACRO(BUILD_DICTIONARY_PLUGIN)
 
 
@@ -77,12 +85,7 @@ SET(CPACK_SOURCE_PACKAGE_FILE_NAME "otterdict-0.1")
 SET(CPACK_SOURCE_IGNORE_FILES ".svn/;moc_.*;gendocs/;build;.ignore")
 INCLUDE(CPack)
 
-# installation commands
-FILE(GLOB my_ALL_PLUGINS "${CMAKE_CURRENT_BINARY_DIR}/plugins/*/lib*plugin*")
-INSTALL(
-	FILES ${my_ALL_PLUGINS}
-	DESTINATION share/otterdict
-)
+# install the executable, plugins are installed automatically
 INSTALL(
 	PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/src/otterdict
 	DESTINATION bin
@@ -90,9 +93,15 @@ INSTALL(
 
 
 # first, compile the plugins...
-ADD_SUBDIRECTORY(plugins/echoplugin)
-ADD_SUBDIRECTORY(plugins/slovnikczplugin)
-ADD_SUBDIRECTORY(plugins/thesauruscomplugin)
+FOREACH(
+	i_PLUGIN_DIRECTORY 
+		plugins/echoplugin 
+		plugins/slovnikczplugin 
+		plugins/thesauruscomplugin
+	)
+	ADD_SUBDIRECTORY(${i_PLUGIN_DIRECTORY})
+ENDFOREACH(i_PLUGIN_DIRECTORY)
+
 # ...and the the application itself
 ADD_SUBDIRECTORY(src)
 
