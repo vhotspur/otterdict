@@ -5,6 +5,7 @@
 #include "PluginManager.h"
 #include "www/WebPage.h"
 #include "flag.xpm"
+#include "config.h"
 
 /**
  * @mainpage
@@ -33,7 +34,9 @@ int main(int argc, char * argv[]) {
 	settings.endArray();
 	settings.endGroup();
 	
-	plugMgr.addPluginDirectory(qApp->applicationDirPath());
+	#ifdef PLUGINS_PATH
+		plugMgr.addPluginDirectory(PLUGINS_PATH);
+	#endif
 	plugMgr.loadPlugins();
 	
 	ActionZone mainWindow(settings.value("mainwindow/dictionarycount", 2).toInt(), 0);

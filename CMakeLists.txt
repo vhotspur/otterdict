@@ -25,6 +25,19 @@ SET(my_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 SET(my_INCLUDE_DIR_DICTIONARY_CLASSES ${my_SOURCE_DIR})
 # directory with web helpers header files
 SET(my_INCLUDE_DIR_WEB_HELPER_CLASSES ${my_SOURCE_DIR}/www)
+# remove the ending slash in CMAKE_INSTALL_PREFIX path
+STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+# directory where plugins would be installed
+SET(my_INSTALLED_PLUGINS_DIR "lib/${PROJECT_NAME}/plugins")
+
+
+###
+# config.h setup
+# 
+# set path to plugins
+SET(my_CONFIG_PLUGINS_PATH "${CMAKE_INSTALL_PREFIX}/${my_INSTALLED_PLUGINS_DIR}")
+# generate configh.
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
 ###
 #
@@ -73,7 +86,7 @@ MACRO(BUILD_DICTIONARY_PLUGIN arg_NAME arg_SOURCES arg_MOC_HEADERS)
 		TARGETS 
 			${arg_NAME}
 		LIBRARY 
-			DESTINATION "lib/${PROJECT_NAME}/plugins"
+			DESTINATION "${my_INSTALLED_PLUGINS_DIR}"
 	)
 ENDMACRO(BUILD_DICTIONARY_PLUGIN)
 
@@ -95,7 +108,7 @@ INSTALL(
 # first, compile the plugins...
 FOREACH(
 	i_PLUGIN_DIRECTORY 
-		plugins/echoplugin 
+		# plugins/echoplugin 
 		plugins/slovnikczplugin 
 		plugins/thesauruscomplugin
 	)
